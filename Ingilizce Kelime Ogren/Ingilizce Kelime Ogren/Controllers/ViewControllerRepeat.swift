@@ -23,6 +23,7 @@ class ViewControllerRepeat: UIViewController {
     var selectedPassword = ""
     
     var personal : Users?
+    var i = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class ViewControllerRepeat: UIViewController {
         repeatButton.layer.cornerRadius = 30
         logoutButton.setImage(UIImage(named: "logout"), for: .normal)
         logoutButton.imageView?.contentMode = .scaleAspectFill
-        
+        userImage.layer.cornerRadius = 37
         if selectedUsername != ""{
             if let uuidString = selectedID?.uuidString{
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -68,6 +69,10 @@ class ViewControllerRepeat: UIViewController {
                             if let imageData = result.value(forKey: "image") as? Data{
                                 let image = UIImage(data: imageData)
                                 userImage.image = image
+                                userImage.isHidden = false
+                                if let imageLet = image{
+                                    personal?.image = imageLet
+                                }
                             }
                         }
                         
@@ -84,5 +89,4 @@ class ViewControllerRepeat: UIViewController {
         performSegue(withIdentifier: "toBackLogin", sender: nil)
     }
     
-
 }

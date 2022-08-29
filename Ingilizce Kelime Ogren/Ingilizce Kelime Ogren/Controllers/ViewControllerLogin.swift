@@ -34,7 +34,8 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
         imageView.layer.cornerRadius = 100
         loginButton.layer.cornerRadius = 15
         getDatas()
-
+        print(usernameArray)
+        print(passwordArray)
     }
 
     @IBAction func indexChanged(_ sender: Any) {
@@ -76,16 +77,20 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
                         performSegue(withIdentifier: "toMenu", sender: nil)
                     }
                     else{
-                        hataMesaji.text = "Kullanıcı Adı Veya Şifre Yanlış."
+                        hataMesaji.isHidden = false
+                        hataMesaji.text = "Kullanıcı Adı Veya Şifre Yanlış"
                     }
+                }
+                else{
+                    hataMesaji.isHidden = false
+                    hataMesaji.text = "Kullanıcı Adı Veya Şifre Yanlış."
                 }
                 i += 1
             }
             else{
+                hataMesaji.isHidden = false
                 hataMesaji.text = "Eksik Bilgileri Doldurunuz."
             }
-            
-            performSegue(withIdentifier: "toMenu", sender: nil)
         }
         else{
             // REGISTER
@@ -107,6 +112,7 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
                     
                     do {
                         try context.save()
+                        hataMesaji.isHidden = false
                         hataMesaji.text = "Başarıyla Kayıt Olundu."
                     } catch{
                         hataMesaji.isHidden = false

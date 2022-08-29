@@ -14,5 +14,6 @@ struct Users{
     var surname : String
     var username : String
     var password : String
+    var image : UIImage?
     var words : [String : String]
 }

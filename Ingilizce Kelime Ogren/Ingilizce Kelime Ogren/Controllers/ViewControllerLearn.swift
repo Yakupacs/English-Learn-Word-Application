@@ -18,6 +18,7 @@ class ViewControllerLearn: UIViewController {
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
     
+    var personal : Users?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class ViewControllerLearn: UIViewController {
         noButton.layer.cornerRadius = 30
         logoutButton.setImage(UIImage(named: "logout"), for: .normal)
         logoutButton.imageView?.contentMode = .scaleAspectFill
+        userImage.image = personal?.image
     }
     
     
