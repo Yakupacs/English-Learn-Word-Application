@@ -16,22 +16,26 @@ class ViewControllerRepeat: UIViewController {
     @IBOutlet weak var repeatButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var usernameLbl: UILabel!
     
     var selectedID : UUID?
-    var selectedName = ""
-    var selectedUsername = ""
-    var selectedPassword = ""
+    var selectedUsername : String = ""
     
-    var personal : Users?
+    var personalName : String = ""
+    var personalSurname : String = ""
+    var personalUsername : String = ""
+    var personalPassword : String = ""
+    var personalImage : UIImage?
     var i = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         pageView.layer.cornerRadius = 30
         repeatButton.layer.cornerRadius = 30
         logoutButton.setImage(UIImage(named: "logout"), for: .normal)
         logoutButton.imageView?.contentMode = .scaleAspectFill
-        userImage.layer.cornerRadius = 37
+        userImage.layer.cornerRadius = 30
         if selectedUsername != ""{
             if let uuidString = selectedID?.uuidString{
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -51,19 +55,19 @@ class ViewControllerRepeat: UIViewController {
                         for result in results as! [NSManagedObject]{
                             
                             if let name = result.value(forKey: "name") as? String{
-                                personal?.name = name
+                                personalName = name
                             }
                             
                             if let surname = result.value(forKey: "surname") as? String{
-                                personal?.surname = surname
+                                personalSurname = surname
                             }
                             
                             if let username = result.value(forKey: "username") as? String{
-                                personal?.username = username
+                                personalUsername = username
                             }
                             
                             if let password = result.value(forKey: "password") as? String{
-                                personal?.password = password
+                                personalPassword = password
                             }
                             
                             if let imageData = result.value(forKey: "image") as? Data{
@@ -71,7 +75,7 @@ class ViewControllerRepeat: UIViewController {
                                 userImage.image = image
                                 userImage.isHidden = false
                                 if let imageLet = image{
-                                    personal?.image = imageLet
+                                    personalImage = imageLet
                                 }
                             }
                         }
@@ -82,11 +86,18 @@ class ViewControllerRepeat: UIViewController {
                 }
             }
         }
+        usernameLbl.text = personalUsername
+        let tabbar = tabBarController as! ViewControllerTabBar
+        tabbar.sendName = personalName
+        tabbar.sendSurname = personalSurname
+        tabbar.sendUsername = personalUsername
+        tabbar.sendPassword = personalPassword
+        tabbar.sendImage = personalImage
         
     }
     
     @IBAction func logoutButton(_ sender: Any) {
         performSegue(withIdentifier: "toBackLogin", sender: nil)
     }
-    
+
 }

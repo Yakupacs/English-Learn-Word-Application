@@ -31,11 +31,12 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        pasword2Txt.isSecureTextEntry = true
+        passwordTxt.isSecureTextEntry = true
+        
         imageView.layer.cornerRadius = 100
         loginButton.layer.cornerRadius = 15
         getDatas()
-        print(usernameArray)
-        print(passwordArray)
     }
 
     @IBAction func indexChanged(_ sender: Any) {
@@ -47,7 +48,11 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
             nameTxt.isHidden = true
             surnameTxt.isHidden = true
             imageView.isHidden = true
-            getDatas()
+            nameTxt.text = ""
+            surnameTxt.text = ""
+            usernameTxt.text = ""
+            passwordTxt.text = ""
+            pasword2Txt.text = ""
         case 1:
             // Click to Imageview
             imageView.isUserInteractionEnabled = true
@@ -60,6 +65,11 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
             nameTxt.isHidden = false
             surnameTxt.isHidden = false
             imageView.isHidden = false
+            nameTxt.text = ""
+            surnameTxt.text = ""
+            usernameTxt.text = ""
+            passwordTxt.text = ""
+            pasword2Txt.text = ""
         default:
             break
         }
@@ -68,24 +78,17 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
     @IBAction func loginregisterButton(_ sender: Any) {
         if (whereSegment == false){
             // LOGIN
-            getDatas()
-            
             i = 0
             if usernameTxt.text != "" && passwordTxt.text != ""{
-                if (usernameArray[i] == usernameTxt.text!){
-                    if passwordArray[i] == passwordTxt.text{
-                        performSegue(withIdentifier: "toMenu", sender: nil)
+                while (usernameArray.count > i){
+                    if (usernameArray[i] == usernameTxt.text!){
+                        if passwordArray[i] == passwordTxt.text{
+                            performSegue(withIdentifier: "toMenu", sender: nil)
+                            break
+                        }
                     }
-                    else{
-                        hataMesaji.isHidden = false
-                        hataMesaji.text = "Kullanıcı Adı Veya Şifre Yanlış"
-                    }
+                    i = i + 1
                 }
-                else{
-                    hataMesaji.isHidden = false
-                    hataMesaji.text = "Kullanıcı Adı Veya Şifre Yanlış."
-                }
-                i += 1
             }
             else{
                 hataMesaji.isHidden = false
@@ -114,6 +117,22 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
                         try context.save()
                         hataMesaji.isHidden = false
                         hataMesaji.text = "Başarıyla Kayıt Olundu."
+                        nameTxt.text = ""
+                        surnameTxt.text = ""
+                        usernameTxt.text = ""
+                        passwordTxt.text = ""
+                        pasword2Txt.text = ""
+                        whereSegment = false
+                        loginButton.setTitle("Giriş Yap", for: UIControl.State.normal)
+                        pasword2Txt.isHidden = true
+                        nameTxt.isHidden = true
+                        surnameTxt.isHidden = true
+                        imageView.isHidden = true
+                        segmentedControl.selectedSegmentIndex = 0
+                        idArray.removeAll()
+                        usernameArray.removeAll()
+                        passwordArray.removeAll()
+                        getDatas()
                     } catch{
                         hataMesaji.isHidden = false
                         hataMesaji.text = "Bir Sorun Oluştu, Tekrar Deneyiniz."
@@ -182,7 +201,6 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
                                 if passwordArray[i] == passwordTxt.text{
                                         vc.selectedID = idArray[i]
                                         vc.selectedUsername = usernameArray[i]
-                                        vc.selectedPassword = passwordArray[i]
                                 }
                             }
                             i = i + 1

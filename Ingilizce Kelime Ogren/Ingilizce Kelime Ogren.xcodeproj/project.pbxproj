@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35339FF628BF77F2005B8AF6 /* ViewControllerTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35339FF528BF77F2005B8AF6 /* ViewControllerTabBar.swift */; };
 		3595215C28BA27B200DF0A3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595215B28BA27B200DF0A3B /* AppDelegate.swift */; };
 		3595215E28BA27B200DF0A3B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595215D28BA27B200DF0A3B /* SceneDelegate.swift */; };
 		3595216028BA27B200DF0A3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595215F28BA27B200DF0A3B /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35339FF528BF77F2005B8AF6 /* ViewControllerTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTabBar.swift; sourceTree = "<group>"; };
 		3595215828BA27B200DF0A3B /* Ingilizce Kelime Ogren.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ingilizce Kelime Ogren.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3595215B28BA27B200DF0A3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3595215D28BA27B200DF0A3B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				3595218A28BA9CB700DF0A3B /* ViewControllerRepeat.swift */,
 				3595218728BA972400DF0A3B /* ViewControllerLearn.swift */,
 				3595218D28BA9CCA00DF0A3B /* ViewControllerTest.swift */,
+				35339FF528BF77F2005B8AF6 /* ViewControllerTabBar.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				3595216628BA27B200DF0A3B /* Ingilizce_Kelime_Ogren.xcdatamodeld in Sources */,
 				3595218B28BA9CB700DF0A3B /* ViewControllerRepeat.swift in Sources */,
 				3595215C28BA27B200DF0A3B /* AppDelegate.swift in Sources */,
+				35339FF628BF77F2005B8AF6 /* ViewControllerTabBar.swift in Sources */,
 				3595215E28BA27B200DF0A3B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
