@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewControllerLearn: UIViewController {
 
@@ -20,12 +21,21 @@ class ViewControllerLearn: UIViewController {
     @IBOutlet weak var turkishLbl: UILabel!
     
     var easyWord = [
-        "About" : "Aşağı Yukarı, Yaklaşık",
-        "Action" : "Davranış",
-        "Above" : "Üzerine, Yukarısında",
-        "Across" : "Karşıya",
-        "Activity" : "Etkinlik, Faaliyet",
-        "Actor" : "Oyuncu"
+        "About" : "Hakkında, Aşağı Yukarı, Yaklaşık",
+        "Baby" : "Bebek, Yavru",
+        "Cafe" : "Kafe, Bar",
+        "Dad" : "Baba",
+        "Each" : "Her biri",
+        "Face" : "Yüz, Yüzleşmek",
+        "Game" : "Oyun",
+        "Hair" : "Saç",
+        "Baby" : "Bebek, Yavru",
+        "Baby" : "Bebek, Yavru",
+        "Baby" : "Bebek, Yavru",
+        "Baby" : "Bebek, Yavru",
+        "Baby" : "Bebek, Yavru",
+        "Baby" : "Bebek, Yavru",
+        "Baby" : "Bebek, Yavru",
     ]
     
     var middleWord = [
@@ -77,8 +87,23 @@ class ViewControllerLearn: UIViewController {
         "Guess what!" : "Bil bakalım!"
     ]
     
+    var personalID : UUID?
+    var personalName : String = ""
+    var personalSurname : String = ""
+    var personalUsername : String = ""
+    var personalPassword : String = ""
+    var personalImage : UIImage?
+    var personalWords : Dictionary = ["":""]
+    
+    var learnEasy : Int = 0
+    var learnMiddle : Int = 0
+    var learnHard : Int = 0
+    var learnSentence : Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        personalWords.removeAll()
+        
         pageView.layer.cornerRadius = 30
         userImage.layer.cornerRadius = 30
         yesButton.layer.cornerRadius = 32
@@ -87,87 +112,200 @@ class ViewControllerLearn: UIViewController {
         logoutButton.imageView?.contentMode = .scaleAspectFill
         englishLbl.lineBreakMode = .byWordWrapping
         turkishLbl.lineBreakMode = .byWordWrapping
-        let englishWord = easyWord.randomElement()?.key
-        let turkishWord = easyWord.randomElement()?.value
+        let englishWord = easyWord.randomElement()
         if let englishWordLet = englishWord{
-            if let turkishWordLet = turkishWord{
-                englishLbl.text = englishWordLet
-                turkishLbl.text = turkishWordLet
-            }
+            englishLbl.text = englishWordLet.key
+            turkishLbl.text = englishWordLet.value
         }
-        pageView.backgroundColor = .systemBlue
-        yesButton.backgroundColor = .systemBlue
-        noButton.backgroundColor = .systemBlue
-        segmentedControl.selectedSegmentTintColor = .systemBlue
+        pageView.backgroundColor = .systemGreen
     }
     
     override func viewWillAppear(_ animated: Bool) {
         let tabbar = tabBarController as! ViewControllerTabBar
         userUsername.text = tabbar.sendUsername
         userImage.image = tabbar.sendImage
+        personalID = tabbar.sendID
+        personalImage = tabbar.sendImage
+        personalName = tabbar.sendName
+        personalSurname = tabbar.sendSurname
+        personalUsername = tabbar.sendUsername
+        personalPassword = tabbar.sendPassword
+        personalWords = tabbar.sendWords
     }
     
     @IBAction func indexChanged(_ sender: Any) {
-        switch segmentedControl.selectedSegmentIndex{
-        case 0:
-            pageView.backgroundColor = .systemBlue
-            yesButton.backgroundColor = .systemBlue
-            noButton.backgroundColor = .systemBlue
-            segmentedControl.selectedSegmentTintColor = .systemBlue
-            let englishWord = easyWord.randomElement()?.key
-            let turkishWord = easyWord.randomElement()?.value
-            if let englishWordLet = englishWord{
-                if let turkishWordLet = turkishWord{
-                    englishLbl.text = englishWordLet
-                    turkishLbl.text = turkishWordLet
-                }
-            }
-        case 1:
-            pageView.backgroundColor = .systemPink
-            yesButton.backgroundColor = .systemPink
-            noButton.backgroundColor = .systemPink
-            segmentedControl.selectedSegmentTintColor = .systemPink
-            let englishWord = middleWord.randomElement()?.key
-            let turkishWord = middleWord.randomElement()?.value
-            if let englishWordLet = englishWord{
-                if let turkishWordLet = turkishWord{
-                    englishLbl.text = englishWordLet
-                    turkishLbl.text = turkishWordLet
-                }
-            }
-        case 2:
-            pageView.backgroundColor = .systemRed
-            yesButton.backgroundColor = .systemRed
-            noButton.backgroundColor = .systemRed
-            segmentedControl.selectedSegmentTintColor = .systemRed
-            let englishWord = hardWord.randomElement()?.key
-            let turkishWord = hardWord.randomElement()?.value
-            if let englishWordLet = englishWord{
-                if let turkishWordLet = turkishWord{
-                    englishLbl.text = englishWordLet
-                    turkishLbl.text = turkishWordLet
-                }
-            }
-        case 3:
-            pageView.backgroundColor = .systemGreen
-            yesButton.backgroundColor = .systemGreen
-            noButton.backgroundColor = .systemGreen
-            segmentedControl.selectedSegmentTintColor = .systemGreen
-            let englishWord = sentence.randomElement()?.key
-            let turkishWord = sentence.randomElement()?.value
-            if let englishWordLet = englishWord{
-                if let turkishWordLet = turkishWord{
-                    englishLbl.text = englishWordLet
-                    turkishLbl.text = turkishWordLet
-                }
-            }
-        default:
-            break
-        }
+        wordsRandom()
     }
     @IBAction func logoutFunc(_ sender: Any) {
         performSegue(withIdentifier: "toBackLogin", sender: nil)
     }
     
+    @IBAction func noFunc(_ sender: Any) {
+        switch segmentedControl.selectedSegmentIndex{
+        case 0:
+            if learnMiddle != easyWord.count{
+                wordsRandom()
+            }
+        case 1:
+            if learnMiddle != middleWord.count{
+                wordsRandom()
+            }
+        case 2:
+            if learnHard != hardWord.count{
+                wordsRandom()
+            }
+        case 3:
+            if learnSentence != sentence.count{
+                wordsRandom()
+            }
+        default:
+            break
+        }
+    }
+    @IBAction func yesFunc(_ sender: Any) {
+        switch segmentedControl.selectedSegmentIndex{
+        case 0:
+            if learnEasy != easyWord.count{
+                let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
+                personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
+                learnEasy += 1
+                wordsRandom()
+            }
+            else{
+                englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
+                turkishLbl.text = ""
+            }
+        case 1:
+            if learnMiddle != middleWord.count{
+                let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
+                personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
+                learnMiddle += 1
+                wordsRandom()
+            }
+            else{
+                englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
+                turkishLbl.text = ""
+            }
+        case 2:
+            if learnHard != hardWord.count{
+                let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
+                personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
+                learnHard += 1
+                wordsRandom()
+            }
+            else{
+                englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
+                turkishLbl.text = ""
+            }
+        case 3:
+            if learnSentence != sentence.count{
+                let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
+                personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
+                learnSentence += 1
+                wordsRandom()
+            }
+            else{
+                englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
+                turkishLbl.text = ""
+            }
+        default:
+            break
+        }
 
+        print(personalWords)
+    }
+    
+    func wordsRandom(){
+        switch segmentedControl.selectedSegmentIndex{
+        case 0:
+            if learnEasy != easyWord.count{
+                pageView.backgroundColor = .systemGreen
+                var randomEnglishWord = easyWord.randomElement()
+                for (english, _) in personalWords{
+                    if english == randomEnglishWord?.key{
+                        randomEnglishWord = easyWord.randomElement()
+                    }
+                    else{
+                        if let englishWordLet = randomEnglishWord{
+                            englishLbl.text = englishWordLet.key
+                            turkishLbl.text = englishWordLet.value
+                        }
+                    }
+                }
+            }
+            else{
+                pageView.backgroundColor = .systemGreen
+                englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
+                turkishLbl.text = ""
+            }
+            
+        case 1:
+            if learnMiddle != middleWord.count{
+                pageView.backgroundColor = .systemOrange
+                var randomEnglishWord = middleWord.randomElement()
+                for (english, _) in personalWords{
+                    if english == randomEnglishWord?.key{
+                        randomEnglishWord = middleWord.randomElement()
+                    }
+                    else{
+                        if let englishWordLet = randomEnglishWord{
+                            englishLbl.text = englishWordLet.key
+                            turkishLbl.text = englishWordLet.value
+                        }
+                    }
+                }
+            }
+            else{
+                pageView.backgroundColor = .systemOrange
+                englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
+                turkishLbl.text = ""
+            }
+
+        case 2:
+            if learnHard != hardWord.count{
+            pageView.backgroundColor = .systemRed
+            var randomEnglishWord = hardWord.randomElement()
+            for (english, _) in personalWords{
+                if english == randomEnglishWord?.key{
+                    randomEnglishWord = hardWord.randomElement()
+                }
+                else{
+                    if let englishWordLet = randomEnglishWord{
+                        englishLbl.text = englishWordLet.key
+                        turkishLbl.text = englishWordLet.value
+                    }
+                }
+            }
+            }
+            else{
+                pageView.backgroundColor = .systemRed
+                englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
+                turkishLbl.text = ""
+            }
+        case 3:
+            if learnSentence != sentence.count{
+            pageView.backgroundColor = .systemBlue
+            var randomEnglishWord = sentence.randomElement()
+            for (english, _) in personalWords{
+                if english == randomEnglishWord?.key{
+                    randomEnglishWord = sentence.randomElement()
+                }
+                else{
+                    if let englishWordLet = randomEnglishWord{
+                        englishLbl.text = englishWordLet.key
+                        turkishLbl.text = englishWordLet.value
+                    }
+                }
+            }
+            }
+            else{
+                pageView.backgroundColor = .systemBlue
+                englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
+                turkishLbl.text = ""
+            }
+        default:
+            break
+        }
+    }
+    
 }

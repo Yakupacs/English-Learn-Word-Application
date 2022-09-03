@@ -31,6 +31,7 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         pasword2Txt.isSecureTextEntry = true
         passwordTxt.isSecureTextEntry = true
         
@@ -110,6 +111,7 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
                     userData.setValue(surnameTxt.text, forKey: "surname")
                     userData.setValue(usernameTxt.text, forKey: "username")
                     userData.setValue(passwordTxt.text, forKey: "password")
+                    userData.setValue("", forKey: "words")
                     let imageData = imageView.image!.jpegData(compressionQuality: 0.5)
                     userData.setValue(imageData, forKey: "image")
                     

@@ -25,11 +25,25 @@ class ViewControllerRepeat: UIViewController {
     var personalSurname : String = ""
     var personalUsername : String = ""
     var personalPassword : String = ""
+    var personalWords : Dictionary = ["" : ""]
     var personalImage : UIImage?
     var i = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        wordsList()
+        
+        englishLbl.lineBreakMode = .byWordWrapping
+        turkishLbl.lineBreakMode = .byWordWrapping
+        
+        userImage.isUserInteractionEnabled = true
+        let imageGestRecog = UITapGestureRecognizer(target: self, action: #selector(goToDetails))
+        userImage.addGestureRecognizer(imageGestRecog)
+        
+        usernameLbl.isUserInteractionEnabled = true
+        let usernameGestRecog = UITapGestureRecognizer(target: self, action: #selector(goToDetails))
+        usernameLbl.addGestureRecognizer(usernameGestRecog)
         
         pageView.layer.cornerRadius = 30
         repeatButton.layer.cornerRadius = 30
@@ -78,6 +92,10 @@ class ViewControllerRepeat: UIViewController {
                                     personalImage = imageLet
                                 }
                             }
+                            
+                            if let words = result.value(forKey: "words") as? Dictionary<String, String>{
+                                personalWords = words
+                            }
                         }
                         
                     }
@@ -88,16 +106,39 @@ class ViewControllerRepeat: UIViewController {
         }
         usernameLbl.text = personalUsername
         let tabbar = tabBarController as! ViewControllerTabBar
+        tabbar.sendID = selectedID
         tabbar.sendName = personalName
         tabbar.sendSurname = personalSurname
         tabbar.sendUsername = personalUsername
         tabbar.sendPassword = personalPassword
         tabbar.sendImage = personalImage
-        
+        tabbar.sendWords = personalWords
     }
     
     @IBAction func logoutButton(_ sender: Any) {
         performSegue(withIdentifier: "toBackLogin", sender: nil)
     }
+    
+    
+    @objc func goToDetails(){
+        performSegue(withIdentifier: "toDetails", sender: nil)
+    }
 
+    func wordsList(){
+        if (personalWords != ["" : ""]){
+            let englishWord = personalWords.randomElement()
+            if let englishWordLet = englishWord{
+                englishLbl.text = englishWordLet.key
+                turkishLbl.text = englishWordLet.value
+            }
+        }
+        else{
+            turkishLbl.text = ""
+            englishLbl.text = "Kelime Bilgisi Mevcut Değil."
+        }
+    }
+
+    @IBAction func shuffleFunc(_ sender: Any) {
+        wordsList()
+    }
 }

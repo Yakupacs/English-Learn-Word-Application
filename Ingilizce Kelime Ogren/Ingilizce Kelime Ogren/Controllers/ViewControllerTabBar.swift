@@ -9,10 +9,12 @@ import UIKit
 
 class ViewControllerTabBar: UITabBarController {
 
+    var sendID : UUID?
     var sendName : String = "a"
     var sendSurname : String = "a"
     var sendUsername : String = "a"
     var sendPassword : String = "a"
+    var sendWords : Dictionary = ["" : ""]
     var sendImage : UIImage?
     
     override func viewDidLoad() {
