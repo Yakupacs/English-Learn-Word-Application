@@ -18,8 +18,6 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var surnameTxt: UITextField!
-    @IBOutlet weak var loginInfotxt: UILabel!
-    @IBOutlet weak var centerButton: NSLayoutConstraint!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var hataMesaji: UILabel!
     
@@ -31,9 +29,6 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        pasword2Txt.isSecureTextEntry = true
-        passwordTxt.isSecureTextEntry = true
         
         imageView.layer.cornerRadius = 100
         loginButton.layer.cornerRadius = 15
@@ -86,6 +81,10 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
                         if passwordArray[i] == passwordTxt.text{
                             performSegue(withIdentifier: "toMenu", sender: nil)
                             break
+                        }
+                        else{
+                            hataMesaji.isHidden = false
+                            hataMesaji.text = "Girilen Şifre Yanlış"
                         }
                     }
                     i = i + 1

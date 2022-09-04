@@ -28,14 +28,7 @@ class ViewControllerLearn: UIViewController {
         "Each" : "Her biri",
         "Face" : "Yüz, Yüzleşmek",
         "Game" : "Oyun",
-        "Hair" : "Saç",
-        "Baby" : "Bebek, Yavru",
-        "Baby" : "Bebek, Yavru",
-        "Baby" : "Bebek, Yavru",
-        "Baby" : "Bebek, Yavru",
-        "Baby" : "Bebek, Yavru",
-        "Baby" : "Bebek, Yavru",
-        "Baby" : "Bebek, Yavru",
+        "Hair" : "Saç"
     ]
     
     var middleWord = [
@@ -94,11 +87,17 @@ class ViewControllerLearn: UIViewController {
     var personalPassword : String = ""
     var personalImage : UIImage?
     var personalWords : Dictionary = ["":""]
+    var sign : Bool = false
     
-    var learnEasy : Int = 0
-    var learnMiddle : Int = 0
-    var learnHard : Int = 0
-    var learnSentence : Int = 0
+    var learnEasyCount : Int = 0
+    var learnMiddleCount : Int = 0
+    var learnHardCount : Int = 0
+    var learnSentenceCount : Int = 0
+    
+    var learnEasyArray : [String] = [""]
+    var learnMiddleArray : [String] = [""]
+    var learnHardArray : [String] = [""]
+    var learnSentenceArray : [String] = [""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,19 +142,19 @@ class ViewControllerLearn: UIViewController {
     @IBAction func noFunc(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex{
         case 0:
-            if learnMiddle != easyWord.count{
+            if learnMiddleCount != easyWord.count{
                 wordsRandom()
             }
         case 1:
-            if learnMiddle != middleWord.count{
+            if learnMiddleCount != middleWord.count{
                 wordsRandom()
             }
         case 2:
-            if learnHard != hardWord.count{
+            if learnHardCount != hardWord.count{
                 wordsRandom()
             }
         case 3:
-            if learnSentence != sentence.count{
+            if learnSentenceCount != sentence.count{
                 wordsRandom()
             }
         default:
@@ -165,10 +164,9 @@ class ViewControllerLearn: UIViewController {
     @IBAction func yesFunc(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex{
         case 0:
-            if learnEasy != easyWord.count{
+            if learnEasyArray.count != easyWord.count{
                 let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
                 personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
-                learnEasy += 1
                 wordsRandom()
             }
             else{
@@ -176,10 +174,10 @@ class ViewControllerLearn: UIViewController {
                 turkishLbl.text = ""
             }
         case 1:
-            if learnMiddle != middleWord.count{
+            if learnMiddleCount != middleWord.count{
                 let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
                 personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
-                learnMiddle += 1
+                learnMiddleCount += 1
                 wordsRandom()
             }
             else{
@@ -187,10 +185,10 @@ class ViewControllerLearn: UIViewController {
                 turkishLbl.text = ""
             }
         case 2:
-            if learnHard != hardWord.count{
+            if learnHardCount != hardWord.count{
                 let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
                 personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
-                learnHard += 1
+                learnHardCount += 1
                 wordsRandom()
             }
             else{
@@ -198,10 +196,10 @@ class ViewControllerLearn: UIViewController {
                 turkishLbl.text = ""
             }
         case 3:
-            if learnSentence != sentence.count{
+            if learnSentenceCount != sentence.count{
                 let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
                 personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
-                learnSentence += 1
+                learnSentenceCount = learnEasyArray.count
                 wordsRandom()
             }
             else{
@@ -218,17 +216,20 @@ class ViewControllerLearn: UIViewController {
     func wordsRandom(){
         switch segmentedControl.selectedSegmentIndex{
         case 0:
-            if learnEasy != easyWord.count{
-                pageView.backgroundColor = .systemGreen
+            print(easyWord.count,learnEasyArray.count)
+            pageView.backgroundColor = .systemGreen
+            if easyWord.count != learnEasyArray.count - 1{
                 var randomEnglishWord = easyWord.randomElement()
                 for (english, _) in personalWords{
-                    if english == randomEnglishWord?.key{
-                        randomEnglishWord = easyWord.randomElement()
-                    }
-                    else{
-                        if let englishWordLet = randomEnglishWord{
+                    if let englishWordLet = randomEnglishWord{
+                        if english == englishWordLet.key{
+                            break
+                        }
+                        else if english != englishWordLet.key{
                             englishLbl.text = englishWordLet.key
                             turkishLbl.text = englishWordLet.value
+                            learnEasyArray.append(englishWordLet.key)
+                            break
                         }
                     }
                 }
@@ -238,9 +239,8 @@ class ViewControllerLearn: UIViewController {
                 englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
                 turkishLbl.text = ""
             }
-            
         case 1:
-            if learnMiddle != middleWord.count{
+            if learnMiddleCount != middleWord.count{
                 pageView.backgroundColor = .systemOrange
                 var randomEnglishWord = middleWord.randomElement()
                 for (english, _) in personalWords{
@@ -262,7 +262,7 @@ class ViewControllerLearn: UIViewController {
             }
 
         case 2:
-            if learnHard != hardWord.count{
+            if learnHardCount != hardWord.count{
             pageView.backgroundColor = .systemRed
             var randomEnglishWord = hardWord.randomElement()
             for (english, _) in personalWords{
@@ -283,7 +283,7 @@ class ViewControllerLearn: UIViewController {
                 turkishLbl.text = ""
             }
         case 3:
-            if learnSentence != sentence.count{
+            if learnSentenceCount != sentence.count{
             pageView.backgroundColor = .systemBlue
             var randomEnglishWord = sentence.randomElement()
             for (english, _) in personalWords{
