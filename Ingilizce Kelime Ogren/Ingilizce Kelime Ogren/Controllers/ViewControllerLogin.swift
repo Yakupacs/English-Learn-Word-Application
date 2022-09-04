@@ -30,26 +30,33 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageView.layer.cornerRadius = 100
+        imageView.layer.cornerRadius = 107
         loginButton.layer.cornerRadius = 15
         getDatas()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 1, delay: 0.5) {
+            self.imageView.frame.size.height -= 20
+        }
+    }
     @IBAction func indexChanged(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex{
         case 0:
+            imageView.isHidden = true
             whereSegment = false
             loginButton.setTitle("Giriş Yap", for: UIControl.State.normal)
             pasword2Txt.isHidden = true
             nameTxt.isHidden = true
             surnameTxt.isHidden = true
-            imageView.isHidden = true
             nameTxt.text = ""
             surnameTxt.text = ""
             usernameTxt.text = ""
             passwordTxt.text = ""
             pasword2Txt.text = ""
         case 1:
+            
+            imageView.image = UIImage(named: "imageAdd")
             // Click to Imageview
             imageView.isUserInteractionEnabled = true
             let imageGestRecog = UITapGestureRecognizer(target: self, action: #selector(selectImage))

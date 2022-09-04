@@ -15,8 +15,7 @@ class ViewControllerRepeat: UIViewController {
     @IBOutlet weak var turkishLbl: UILabel!
     @IBOutlet weak var repeatButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
-    @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var usernameLbl: UILabel!
+    @IBOutlet weak var imageLogo: UIImageView!
     
     var selectedID : UUID?
     var selectedUsername : String = ""
@@ -29,27 +28,20 @@ class ViewControllerRepeat: UIViewController {
     var personalImage : UIImage?
     var i = 0
     
+    var transferWords : Dictionary = ["" : ""]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        wordsList()
+
+
         
         englishLbl.lineBreakMode = .byWordWrapping
         turkishLbl.lineBreakMode = .byWordWrapping
         
-        userImage.isUserInteractionEnabled = true
-        let imageGestRecog = UITapGestureRecognizer(target: self, action: #selector(goToDetails))
-        userImage.addGestureRecognizer(imageGestRecog)
-        
-        usernameLbl.isUserInteractionEnabled = true
-        let usernameGestRecog = UITapGestureRecognizer(target: self, action: #selector(goToDetails))
-        usernameLbl.addGestureRecognizer(usernameGestRecog)
-        
-        pageView.layer.cornerRadius = 30
+        pageView.layer.cornerRadius = 60
         repeatButton.layer.cornerRadius = 30
         logoutButton.setImage(UIImage(named: "logout"), for: .normal)
         logoutButton.imageView?.contentMode = .scaleAspectFill
-        userImage.layer.cornerRadius = 30
         if selectedUsername != ""{
             if let uuidString = selectedID?.uuidString{
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -86,8 +78,6 @@ class ViewControllerRepeat: UIViewController {
                             
                             if let imageData = result.value(forKey: "image") as? Data{
                                 let image = UIImage(data: imageData)
-                                userImage.image = image
-                                userImage.isHidden = false
                                 if let imageLet = image{
                                     personalImage = imageLet
                                 }
@@ -104,7 +94,6 @@ class ViewControllerRepeat: UIViewController {
                 }
             }
         }
-        usernameLbl.text = personalUsername
         let tabbar = tabBarController as! ViewControllerTabBar
         tabbar.sendID = selectedID
         tabbar.sendName = personalName
@@ -113,6 +102,26 @@ class ViewControllerRepeat: UIViewController {
         tabbar.sendPassword = personalPassword
         tabbar.sendImage = personalImage
         tabbar.sendWords = personalWords
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        transferWords.removeAll()
+        let tabbar = tabBarController as! ViewControllerTabBar
+        personalWords = tabbar.sendWords
+        transferWords = personalWords
+        for (english, _) in transferWords{
+            if english == ""{
+                transferWords.removeValue(forKey: "")
+                break
+            }
+        }
+        wordsList()
+        UIView.animate(withDuration: 1, delay: 0.5) {
+            self.imageLogo.frame.size.height += 40
+        }
+        if (personalWords.count == 1){
+            englishLbl.text = "Henüz Kelime Öğrenmedin"
+        }
     }
     
     @IBAction func logoutButton(_ sender: Any) {
@@ -125,20 +134,37 @@ class ViewControllerRepeat: UIViewController {
     }
 
     func wordsList(){
-        if (personalWords != ["" : ""]){
-            let englishWord = personalWords.randomElement()
-            if let englishWordLet = englishWord{
-                englishLbl.text = englishWordLet.key
-                turkishLbl.text = englishWordLet.value
+        i += 1
+        for (english, _) in transferWords{
+            if english == ""{
+                transferWords.removeValue(forKey: "")
+                break
+            }
+        }
+        if (transferWords.count > 0){
+            for (english, turkish) in transferWords{
+                turkishLbl.text = turkish
+                englishLbl.text = english
+                var colors = [UIColor.black, UIColor.brown, UIColor.darkGray, UIColor.orange, UIColor.red]
+                colors.shuffle()
+                UIView.animate(withDuration: 0.36, delay: 0.12) {
+                    self.pageView.backgroundColor = colors[0]
+                    self.repeatButton.backgroundColor = colors[0]
+                }
+                transferWords.removeValue(forKey: english)
+                break
             }
         }
         else{
             turkishLbl.text = ""
-            englishLbl.text = "Kelime Bilgisi Mevcut Değil."
+            englishLbl.text = "Tebrikler, Kelimeler Bitti"
         }
     }
 
     @IBAction func shuffleFunc(_ sender: Any) {
         wordsList()
+        if (personalWords.count == 1){
+            englishLbl.text = "Henüz Kelime Öğrenmedin"
+        }
     }
 }
