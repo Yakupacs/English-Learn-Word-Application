@@ -1,5 +1,5 @@
 # English Learn Word Application
-
+An app for people who want to memorise new English words.
 <br>
 
 ## Video
