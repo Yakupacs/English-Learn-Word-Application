@@ -199,8 +199,12 @@ class ViewControllerLearn: UIViewController {
     var learnHardArray : Dictionary = ["":""]
     var learnSentenceArray : Dictionary = ["":""]
     
+    var allWords : Dictionary = ["":""]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addAllWords()
         
         pageView.layer.cornerRadius = 60
         yesButton.layer.cornerRadius = 32
@@ -227,21 +231,14 @@ class ViewControllerLearn: UIViewController {
         personalUsername = tabbar.sendUsername
         personalPassword = tabbar.sendPassword
         personalWords = tabbar.sendWords
+        tabbar.allWords = allWords
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 1, delay: 0.25) {
-            self.imageLearn.frame.size.width += 20
-            self.imageLearn.frame.size.height += 20
-            
-        }
     }
     
     @IBAction func indexChanged(_ sender: Any) {
         wordsRandom()
-    }
-    @IBAction func logoutFunc(_ sender: Any) {
-        performSegue(withIdentifier: "toBackLogin", sender: nil)
     }
     
     @IBAction func noFunc(_ sender: Any) {
@@ -282,6 +279,7 @@ class ViewControllerLearn: UIViewController {
                 wordsRandom()
                 let tabbar = tabBarController as! ViewControllerTabBar
                 tabbar.sendWords = personalWords
+                addAllWords()
             }
             else{
                 englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
@@ -296,6 +294,7 @@ class ViewControllerLearn: UIViewController {
                 wordsRandom()
                 let tabbar = tabBarController as! ViewControllerTabBar
                 tabbar.sendWords = personalWords
+                addAllWords()
             }
             else{
                 englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
@@ -310,6 +309,7 @@ class ViewControllerLearn: UIViewController {
                 wordsRandom()
                 let tabbar = tabBarController as! ViewControllerTabBar
                 tabbar.sendWords = personalWords
+                addAllWords()
             }
             else{
                 englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
@@ -324,6 +324,7 @@ class ViewControllerLearn: UIViewController {
                 wordsRandom()
                 let tabbar = tabBarController as! ViewControllerTabBar
                 tabbar.sendWords = personalWords
+                addAllWords()
             }
             else{
                 englishLbl.text = "Bu Kategorideki Kelimeler Tükendi."
@@ -437,4 +438,10 @@ class ViewControllerLearn: UIViewController {
         }
     }
     
+    func addAllWords(){
+        allWords = allWords.merging(easyWord, uniquingKeysWith: {(first, _) in first})
+        allWords = allWords.merging(middleWord, uniquingKeysWith: {(first, _) in first})
+        allWords = allWords.merging(hardWord, uniquingKeysWith: {(first, _) in first})
+        allWords = allWords.merging(sentence, uniquingKeysWith: {(first, _) in first})
+    }
 }

@@ -116,18 +116,10 @@ class ViewControllerRepeat: UIViewController {
             }
         }
         wordsList()
-        UIView.animate(withDuration: 1, delay: 0.5) {
-            self.imageLogo.frame.size.height += 40
-        }
         if (personalWords.count == 1){
             englishLbl.text = "Henüz Kelime Öğrenmedin"
         }
     }
-    
-    @IBAction func logoutButton(_ sender: Any) {
-        performSegue(withIdentifier: "toBackLogin", sender: nil)
-    }
-    
     
     @objc func goToDetails(){
         performSegue(withIdentifier: "toDetails", sender: nil)

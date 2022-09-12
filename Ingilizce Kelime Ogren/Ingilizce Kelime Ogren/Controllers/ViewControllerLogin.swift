@@ -20,6 +20,7 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet weak var surnameTxt: UITextField!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var hataMesaji: UILabel!
+    @IBOutlet weak var background: UIImageView!
     
     var whereSegment : Bool = false
     var idArray = [UUID]()
@@ -32,6 +33,8 @@ class ViewControllerLogin: UIViewController, UIImagePickerControllerDelegate, UI
         
         imageView.layer.cornerRadius = 107
         loginButton.layer.cornerRadius = 15
+        
+        background.layer.zPosition = -1
         getDatas()
     }
 

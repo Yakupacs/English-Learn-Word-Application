@@ -16,6 +16,7 @@ class ViewControllerTabBar: UITabBarController {
     var sendPassword : String = "a"
     var sendWords : Dictionary = ["" : ""]
     var sendImage : UIImage?
+    var allWords : Dictionary = ["" : ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()

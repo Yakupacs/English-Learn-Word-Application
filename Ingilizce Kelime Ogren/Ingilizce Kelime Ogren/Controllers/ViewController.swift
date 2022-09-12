@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageBackground: UIImageView!
     
     var timer =  Timer()
     var count = 2
@@ -17,6 +18,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFunc), userInfo: nil, repeats: true)
+        
+        imageView.layer.zPosition = 1
+        imageBackground.layer.zPosition = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
