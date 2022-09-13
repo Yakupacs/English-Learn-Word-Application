@@ -52,6 +52,11 @@ class ViewControllerTest: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        aBtn.titleLabel?.textAlignment = .center
+        bBtn.titleLabel?.textAlignment = .center
+        cBtn.titleLabel?.textAlignment = .center
+        dBtn.titleLabel?.textAlignment = .center
+        
         buttons = [aBtn, bBtn, cBtn, dBtn]
         
         personalWords.removeValue(forKey: "")

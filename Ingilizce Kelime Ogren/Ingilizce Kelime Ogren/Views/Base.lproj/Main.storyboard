@@ -234,7 +234,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Türkçesi" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iic-PA-pwf">
-                                        <rect key="frame" x="28" y="166" width="253.5" height="89"/>
+                                        <rect key="frame" x="28" y="166" width="254" height="89"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="89" id="wQb-MZ-nx9"/>
                                         </constraints>
@@ -835,7 +835,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XBU-uP-LDD"/>
+        <segue reference="sJ7-NF-qPy"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="background" width="1985" height="1853"/>
