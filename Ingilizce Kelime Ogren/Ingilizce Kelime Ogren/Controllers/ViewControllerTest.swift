@@ -69,16 +69,7 @@ class ViewControllerTest: UIViewController {
         logoutButtonn.setImage(UIImage(named: "logout"), for: .normal)
         logoutButtonn.imageView?.contentMode = .scaleAspectFill
         
-        let tabbar = tabBarController as! ViewControllerTabBar
-        personalID = tabbar.sendID
-        personalImage = tabbar.sendImage
-        personalName = tabbar.sendName
-        personalSurname = tabbar.sendSurname
-        personalUsername = tabbar.sendUsername
-        personalPassword = tabbar.sendPassword
-        personalWords = tabbar.sendWords
-        allWords = tabbar.allWords
-        allWords.removeValue(forKey: "")
+        getTabBarData()
         
         ogrenilenKelimeSayisi.text = "Öğrenilen Kelime Sayisi: \(personalWords.keys.count)"
         cozulenSoruSayisi.text = "Çözülen Soru Sayısı: \(cozulenSorular)"
@@ -93,30 +84,20 @@ class ViewControllerTest: UIViewController {
         bBtn.isHidden = false
         cBtn.isHidden = false
         dBtn.isHidden = false
-        let tabbar = tabBarController as! ViewControllerTabBar
-        personalID = tabbar.sendID
-        personalImage = tabbar.sendImage
-        personalName = tabbar.sendName
-        personalSurname = tabbar.sendSurname
-        personalUsername = tabbar.sendUsername
-        personalPassword = tabbar.sendPassword
-        personalWords = tabbar.sendWords
-        allWords = tabbar.allWords
-        personalWords.removeValue(forKey: "")
-        allWords.removeValue(forKey: "")
+        
+        aBtn.isEnabled = true
+        bBtn.isEnabled = true
+        cBtn.isEnabled = true
+        dBtn.isEnabled = true
+        
+        aBtn.backgroundColor = .red
+        bBtn.backgroundColor = .red
+        cBtn.backgroundColor = .red
+        dBtn.backgroundColor = .red
+        
+        getTabBarData()
 
-        UIView.animate(withDuration: 0.25, delay: 0.25) {
-            self.aBtn.frame.size.width += 345
-        }
-        UIView.animate(withDuration: 0.25, delay: 0.5) {
-            self.bBtn.frame.size.width += 345
-        }
-        UIView.animate(withDuration: 0.25, delay: 0.75) {
-            self.cBtn.frame.size.width += 345
-        }
-        UIView.animate(withDuration: 0.25, delay: 1) {
-            self.dBtn.frame.size.width += 345
-        }
+        animateAnswers()
         
         if personalWords.count != 0{
             let indexTrue: Int = Int(arc4random_uniform(UInt32(personalWords.count)))
@@ -165,73 +146,19 @@ class ViewControllerTest: UIViewController {
     }
     
     @IBAction func aFunc(_ sender: Any) {
-        cozulenSorular += 1
-        myTime = 2
-        if (whichButton == "a"){
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trueFunc), userInfo: nil, repeats: true)
-            dogruSayilari += 1
-
-        }
-        else{
-            yanlisSayilari += 1
-            print("yanlış")
-        }
-
-        cozulenSoruSayisi.text = "Çözülen Soru Sayısı: \(cozulenSorular)"
-        dogruSayisi.text = "Doğru Sayısı: \(dogruSayilari)"
-        yanlisSayisi.text = "Yanlış Sayısı: \(yanlisSayilari)"
-        
+        pressButton(buttonName: "a")
     }
     
     @IBAction func bFunc(_ sender: Any) {
-        cozulenSorular += 1
-        myTime = 2
-        if (whichButton == "b"){
-            dogruSayilari += 1
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trueFunc), userInfo: nil, repeats: true)
-        }
-        else{
-            yanlisSayilari += 1
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(falseFunc), userInfo: nil, repeats: true)
-        }
-        
-        cozulenSoruSayisi.text = "Çözülen Soru Sayısı: \(cozulenSorular)"
-        dogruSayisi.text = "Doğru Sayısı: \(dogruSayilari)"
-        yanlisSayisi.text = "Yanlış Sayısı: \(yanlisSayilari)"
+        pressButton(buttonName: "b")
     }
     
     @IBAction func cFunc(_ sender: Any) {
-        cozulenSorular += 1
-        myTime = 2
-        if (whichButton == "c"){
-            dogruSayilari += 1
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trueFunc), userInfo: nil, repeats: true)
-        }
-        else{
-            yanlisSayilari += 1
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(falseFunc), userInfo: nil, repeats: true)
-        }
-        
-        cozulenSoruSayisi.text = "Çözülen Soru Sayısı: \(cozulenSorular)"
-        dogruSayisi.text = "Doğru Sayısı: \(dogruSayilari)"
-        yanlisSayisi.text = "Yanlış Sayısı: \(yanlisSayilari)"
+        pressButton(buttonName: "c")
     }
     
     @IBAction func dFunc(_ sender: Any) {
-        cozulenSorular += 1
-        myTime = 2
-        if (whichButton == "d"){
-            dogruSayilari += 1
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trueFunc), userInfo: nil, repeats: true)
-        }
-        else{
-            yanlisSayilari += 1
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(falseFunc), userInfo: nil, repeats: true)
-        }
-        
-        cozulenSoruSayisi.text = "Çözülen Soru Sayısı: \(cozulenSorular)"
-        dogruSayisi.text = "Doğru Sayısı: \(dogruSayilari)"
-        yanlisSayisi.text = "Yanlış Sayısı: \(yanlisSayilari)"
+        pressButton(buttonName: "d")
     }
     
     @objc func trueFunc(){
@@ -305,18 +232,7 @@ class ViewControllerTest: UIViewController {
     }
     
     func makeQuestion(){
-        UIView.animate(withDuration: 0.25, delay: 0.25) {
-            self.aBtn.frame.size.width += 345
-        }
-        UIView.animate(withDuration: 0.25, delay: 0.5) {
-            self.bBtn.frame.size.width += 345
-        }
-        UIView.animate(withDuration: 0.25, delay: 0.75) {
-            self.cBtn.frame.size.width += 345
-        }
-        UIView.animate(withDuration: 0.25, delay: 1) {
-            self.dBtn.frame.size.width += 345
-        }
+        animateAnswers()
         
         if personalWords.count != 0{
             let indexTrue: Int = Int(arc4random_uniform(UInt32(personalWords.count)))
@@ -357,5 +273,56 @@ class ViewControllerTest: UIViewController {
             dBtn.isHidden = true
             questionButton.setTitle("Lütfen Kelime Öğrenin!", for: .normal)
         }
+    }
+    
+    func getTabBarData(){
+        let tabbar = tabBarController as! ViewControllerTabBar
+        personalID = tabbar.sendID
+        personalImage = tabbar.sendImage
+        personalName = tabbar.sendName
+        personalSurname = tabbar.sendSurname
+        personalUsername = tabbar.sendUsername
+        personalPassword = tabbar.sendPassword
+        personalWords = tabbar.sendWords
+        allWords = tabbar.allWords
+        allWords.removeValue(forKey: "")
+        personalWords.removeValue(forKey: "")
+    }
+    
+    func animateAnswers(){
+        UIView.animate(withDuration: 0.25, delay: 0.25) {
+            self.aBtn.frame.size.width += 345
+        }
+        UIView.animate(withDuration: 0.25, delay: 0.5) {
+            self.bBtn.frame.size.width += 345
+        }
+        UIView.animate(withDuration: 0.25, delay: 0.75) {
+            self.cBtn.frame.size.width += 345
+        }
+        UIView.animate(withDuration: 0.25, delay: 1) {
+            self.dBtn.frame.size.width += 345
+        }
+    }
+    
+    func pressButton(buttonName: String){
+        aBtn.isEnabled = false
+        bBtn.isEnabled = false
+        cBtn.isEnabled = false
+        dBtn.isEnabled = false
+        cozulenSorular += 1
+        myTime = 2
+        if (whichButton == "\(buttonName)"){
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trueFunc), userInfo: nil, repeats: true)
+            dogruSayilari += 1
+        }
+        else{
+            yanlisSayilari += 1
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(falseFunc), userInfo: nil, repeats: true)
+        }
+
+        cozulenSoruSayisi.text = "Çözülen Soru Sayısı: \(cozulenSorular)"
+        dogruSayisi.text = "Doğru Sayısı: \(dogruSayilari)"
+        yanlisSayisi.text = "Yanlış Sayısı: \(yanlisSayilari)"
+        
     }
 }

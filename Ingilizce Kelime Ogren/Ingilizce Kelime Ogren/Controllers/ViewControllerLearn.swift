@@ -533,19 +533,7 @@ class ViewControllerLearn: UIViewController {
             
             pageView.backgroundColor = .systemGreen
             if easyWord.count != learnEasyCount{
-                let randomEnglishWord = easyWord.randomElement()
-                for (english, _) in personalWords{
-                    if let englishWordLet = randomEnglishWord{
-                        if english == englishWordLet.key{
-                            break
-                        }
-                        else if english != englishWordLet.key{
-                            englishLbl.text = englishWordLet.key
-                            turkishLbl.text = englishWordLet.value
-                            break
-                        }
-                    }
-                }
+                controlWord(word: easyWord)
             }
             else{
                 pageView.backgroundColor = .systemGreen
@@ -555,19 +543,7 @@ class ViewControllerLearn: UIViewController {
         case 1:
             pageView.backgroundColor = .systemOrange
             if middleWord.count != learnMiddleCount{
-                let randomEnglishWord = middleWord.randomElement()
-                for (english, _) in personalWords{
-                    if let englishWordLet = randomEnglishWord{
-                        if english == englishWordLet.key{
-                            break
-                        }
-                        else if english != englishWordLet.key{
-                            englishLbl.text = englishWordLet.key
-                            turkishLbl.text = englishWordLet.value
-                            break
-                        }
-                    }
-                }
+                controlWord(word: middleWord)
             }
             else{
                 pageView.backgroundColor = .systemOrange
@@ -578,19 +554,7 @@ class ViewControllerLearn: UIViewController {
         case 2:
             pageView.backgroundColor = .systemRed
             if hardWord.count != learnHardCount{
-                let randomEnglishWord = hardWord.randomElement()
-                for (english, _) in personalWords{
-                    if let englishWordLet = randomEnglishWord{
-                        if english == englishWordLet.key{
-                            break
-                        }
-                        else if english != englishWordLet.key{
-                            englishLbl.text = englishWordLet.key
-                            turkishLbl.text = englishWordLet.value
-                            break
-                        }
-                    }
-                }
+                controlWord(word: hardWord)
             }
             else{
                 pageView.backgroundColor = .systemRed
@@ -600,19 +564,7 @@ class ViewControllerLearn: UIViewController {
         case 3:
             pageView.backgroundColor = .systemBlue
             if sentence.count != learnSentenceCount{
-                let randomEnglishWord = sentence.randomElement()
-                for (english, _) in personalWords{
-                    if let englishWordLet = randomEnglishWord{
-                        if english == englishWordLet.key{
-                            break
-                        }
-                        else if english != englishWordLet.key{
-                            englishLbl.text = englishWordLet.key
-                            turkishLbl.text = englishWordLet.value
-                            break
-                        }
-                    }
-                }
+                controlWord(word: sentence)
             }
             else{
                 pageView.backgroundColor = .systemBlue
@@ -629,5 +581,21 @@ class ViewControllerLearn: UIViewController {
         allWords = allWords.merging(middleWord, uniquingKeysWith: {(first, _) in first})
         allWords = allWords.merging(hardWord, uniquingKeysWith: {(first, _) in first})
         allWords = allWords.merging(sentence, uniquingKeysWith: {(first, _) in first})
+    }
+    
+    func controlWord(word : [String : String]){
+        let randomEnglishWord = word.randomElement()
+        for (english, _) in personalWords{
+            if let englishWordLet = randomEnglishWord{
+                if english == englishWordLet.key{
+                    break
+                }
+                else if english != englishWordLet.key{
+                    englishLbl.text = englishWordLet.key
+                    turkishLbl.text = englishWordLet.value
+                    break
+                }
+            }
+        }
     }
 }

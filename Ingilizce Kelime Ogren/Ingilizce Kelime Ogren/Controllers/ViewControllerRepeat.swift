@@ -116,6 +116,8 @@ class ViewControllerRepeat: UIViewController {
             }
         }
         wordsList()
+        pageView.backgroundColor = UIColor.red
+        repeatButton.backgroundColor = UIColor.red
         if (personalWords.count == 1){
             englishLbl.text = "Henüz Kelime Öğrenmedin"
         }
@@ -137,7 +139,7 @@ class ViewControllerRepeat: UIViewController {
             for (english, turkish) in transferWords{
                 turkishLbl.text = turkish
                 englishLbl.text = english
-                var colors = [UIColor.black, UIColor.brown, UIColor.darkGray, UIColor.orange, UIColor.red]
+                var colors = [UIColor.black, UIColor.brown, UIColor.darkGray, UIColor.orange, UIColor.red, UIColor.systemBlue]
                 colors.shuffle()
                 UIView.animate(withDuration: 0.36, delay: 0.12) {
                     self.pageView.backgroundColor = colors[0]
