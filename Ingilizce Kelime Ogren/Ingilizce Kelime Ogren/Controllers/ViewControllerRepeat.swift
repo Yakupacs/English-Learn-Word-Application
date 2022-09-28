@@ -139,12 +139,6 @@ class ViewControllerRepeat: UIViewController {
             for (english, turkish) in transferWords{
                 turkishLbl.text = turkish
                 englishLbl.text = english
-                var colors = [UIColor.black, UIColor.brown, UIColor.darkGray, UIColor.orange, UIColor.red, UIColor.systemBlue]
-                colors.shuffle()
-                UIView.animate(withDuration: 0.36, delay: 0.12) {
-                    self.pageView.backgroundColor = colors[0]
-                    self.repeatButton.backgroundColor = colors[0]
-                }
                 transferWords.removeValue(forKey: english)
                 break
             }
@@ -156,9 +150,35 @@ class ViewControllerRepeat: UIViewController {
     }
 
     @IBAction func shuffleFunc(_ sender: Any) {
-        wordsList()
         if (personalWords.count == 1){
             englishLbl.text = "Henüz Kelime Öğrenmedin"
+        }
+        else{
+            if englishLbl.text != "Tebrikler, Kelimeler Bitti"{
+                animationWord()
+            }
+        }
+    }
+    
+    func animationWord(){
+        let pageView2 = UIView()
+        pageView2.backgroundColor = UIColor.red
+        pageView2.frame = CGRect(x: 57, y: 338, width: 308, height: 348)
+        pageView2.layer.cornerRadius = 60
+        view.addSubview(pageView2)
+        pageView2.layer.zPosition = 0
+        pageView.layer.zPosition = 1
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            let aciAl = CGAffineTransform(rotationAngle: 25 * .pi/180)
+            let sagAsagi = CGAffineTransform(translationX: 50, y: 25)
+            let x = aciAl.concatenating(sagAsagi)
+            self.pageView.transform = x
+        }) { (true) in
+            self.pageView.transform = CGAffineTransform(rotationAngle: 0 * .pi/180)
+            self.pageView.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.wordsList()
+            pageView2.isHidden = true
         }
     }
 }

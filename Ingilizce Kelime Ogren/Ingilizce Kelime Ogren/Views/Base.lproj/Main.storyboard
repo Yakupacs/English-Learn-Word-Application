@@ -254,8 +254,8 @@
                                     <constraint firstAttribute="bottom" secondItem="iic-PA-pwf" secondAttribute="bottom" constant="51" id="n1k-6R-6GF"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6X-ZU-9ce">
-                                <rect key="frame" x="179" y="703" width="64" height="64"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6X-ZU-9ce">
+                                <rect key="frame" x="179" y="712" width="64" height="64"/>
                                 <color key="backgroundColor" red="1" green="0.090217851099999996" blue="0.086055822670000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="e7Y-lg-e4l"/>
@@ -542,7 +542,7 @@
                                 <rect key="frame" x="-43" y="44" width="500" height="205"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adı:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k0o-8k-r3g">
-                                <rect key="frame" x="20" y="444" width="59" height="21"/>
+                                <rect key="frame" x="20" y="443.5" width="59" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="0fG-r7-EgV"/>
                                     <constraint firstAttribute="width" constant="59" id="9TC-q5-VFW"/>
@@ -552,7 +552,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soyadı:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2z6-WD-dNb">
-                                <rect key="frame" x="20" y="486" width="59" height="21"/>
+                                <rect key="frame" x="20" y="485.5" width="59" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ZFS-Dl-GCJ"/>
                                 </constraints>
@@ -561,7 +561,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kullanıcı Adı:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qgk-Fe-zwC">
-                                <rect key="frame" x="20" y="528" width="88" height="21"/>
+                                <rect key="frame" x="20" y="527.5" width="88" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="SR7-LU-cXo"/>
                                 </constraints>
@@ -844,7 +844,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XBU-uP-LDD"/>
+        <segue reference="sJ7-NF-qPy"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="background" width="1985" height="1853"/>

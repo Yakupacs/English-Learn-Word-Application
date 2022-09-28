@@ -419,10 +419,7 @@ class ViewControllerLearn: UIViewController {
         personalWords = tabbar.sendWords
         tabbar.allWords = allWords
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-    }
-    
+
     @IBAction func indexChanged(_ sender: Any) {
         wordsRandom()
     }
@@ -458,6 +455,7 @@ class ViewControllerLearn: UIViewController {
         switch segmentedControl.selectedSegmentIndex{
         case 0:
             if learnEasyCount != easyWord.count{
+                
                 let dictionaryWord = [englishLbl.text!:turkishLbl.text!]
                 personalWords = personalWords.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
                 learnEasyArray = learnEasyArray.merging(dictionaryWord, uniquingKeysWith: {(first, _) in first})
