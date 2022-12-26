@@ -88,8 +88,8 @@
 				3595218728BA972400DF0A3B /* ViewControllerLearn.swift */,
 				3595218D28BA9CCA00DF0A3B /* ViewControllerTest.swift */,
 				3595218A28BA9CB700DF0A3B /* ViewControllerRepeat.swift */,
-				35339FF528BF77F2005B8AF6 /* TabbarController.swift */,
 				35469D1428C0EBFF00DE45DA /* ViewControllerStatics.swift */,
+				35339FF528BF77F2005B8AF6 /* TabbarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -369,7 +369,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "yakupApp.Ingilizce-Kelime-Ogren";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Ingilizce Kelime Ogren/SQLiteDatabase/Ingilizce Kelime Ogren-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -391,7 +392,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "yakupApp.Ingilizce-Kelime-Ogren";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Ingilizce Kelime Ogren/SQLiteDatabase/Ingilizce Kelime Ogren-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
